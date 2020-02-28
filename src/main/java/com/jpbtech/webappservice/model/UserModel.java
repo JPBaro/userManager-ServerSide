@@ -28,11 +28,12 @@ import javax.validation.constraints.Size;
 		@UniqueConstraint(columnNames = { "email" }) })
 public class UserModel extends Object{
 	
-	@Id
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Long id;
-		
+	
+	@Id	
 	@NotBlank
 	@Column(name = "username")
 	private String username;
@@ -66,7 +67,10 @@ public class UserModel extends Object{
 	@Column(name = "password")
 	private String password;
 
-	//REVISAR  constructor
+	//REVISAR  constructors
+	public UserModel() {
+		
+	}
 	public UserModel(String username, String nombre,
 			String apellidos, int edad,
 			String email, String password) {

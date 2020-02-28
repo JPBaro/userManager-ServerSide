@@ -20,7 +20,7 @@ package com.jpbtech.webappservice.security;
 			http
 			
 				.authorizeRequests()
-					.antMatchers("/")
+					.antMatchers("/","/main/insert" )
 					.permitAll()
 					.anyRequest().authenticated()
 					.and()

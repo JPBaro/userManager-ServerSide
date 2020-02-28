@@ -26,6 +26,27 @@ public class UserModelServiceImpl {
 		}
 	}
 	
+
+	public UserModel insertNewUser(UserModel entity) {
+		
+		Boolean inDB = userRepo.findById(entity.getUsername()).isPresent();
+		
+		System.out.println(inDB);
+		if (inDB){
+			System.out.println("Username: "  + entity.getUsername() + "is in the DB"   );
+						
+		}else {
+			System.out.println("Username: "  + entity.getUsername() + "IS NOT!! in the DB"   );
+			
+		}
+		
+		
+		return null;
+				
+		
+		}
+
+
 	
 
 }
