@@ -2,6 +2,7 @@ package com.jpbtech.webappservice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +22,12 @@ public class UserMngController {
 		System.out.println("######################################");
 		System.out.println("  @GetMapping  getItemInStock !");
 		
-		return ("inthahouse");
+		return ("inthahouse");		
+	}
+	
+	@PostMapping(value="/insert")
+	public void insertUser () {
+		
 		
 	}
 	
