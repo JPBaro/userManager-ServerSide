@@ -4,9 +4,12 @@ package com.jpbtech.webappservice.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import com.jpbtech.webappservice.model.UserModel;
 
-public interface UserModelRepository extends JpaRepository<String, Long>{
+@Repository
+public interface UserModelRepository extends JpaRepository<UserModel, String>{
 	
 	
 	
