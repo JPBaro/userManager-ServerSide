@@ -2,11 +2,8 @@ package com.jpbtech.webappservice.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -23,72 +20,35 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
-@Table (name="usersDB",uniqueConstraints =
-{ @UniqueConstraint(columnNames = { "username" }),
-		@UniqueConstraint(columnNames = { "email" }) })
+@Table (name="usersdb")
 public class UserModel extends Object{
 	
-	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private Long id;
-	
 	@Id	
-	@NotBlank
 	@Column(name = "username")
 	private String username;
-	
-	
-	@NotBlank
+		
 	@Size(min = 2, max = 100)
 	@Column(name = "nombre")
 	private String nombre;
 
 	
-	@NotBlank
 	@Size(max = 100)
 	@Column(name = "apellidos")
 	private String apellidos;
 
 	
-	@NotBlank
 	@Column(name = "edad")
 	private int edad; //cambiar a fecha nacimiento -> Today -FN = Edad
 	
-	@NotBlank
 	@Size(max = 50)
 	@Column(name = "email")
 	private String email;
 	
 //	@JsonIgnore
 	
-	@NotBlank
 	@Size(min = 6, max = 100)
 	@Column(name = "password")
 	private String password;
-
-	//REVISAR  constructors
-	public UserModel() {
-		
-	}
-	public UserModel(String username, String nombre,
-			String apellidos, int edad,
-			String email, String password) {
-		this.username = username;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.edad = edad;
-		this.email = email;
-		this.password = password;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
@@ -137,7 +97,18 @@ public class UserModel extends Object{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	//REVISAR  constructors
+	/*
+	 * public UserModel() {
+	 * 
+	 * } public UserModel(String username, String nombre, String apellidos, int
+	 * edad, String email, String password) { this.username = username;
+	 * this.nombre = nombre; this.apellidos = apellidos; this.edad = edad;
+	 * this.email = email; this.password = password; }
+	 */
 	
+
 	
 	
 	

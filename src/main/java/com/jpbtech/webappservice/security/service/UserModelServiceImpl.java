@@ -19,34 +19,31 @@ public class UserModelServiceImpl {
 
 		List<UserModel> usersList = userRepo.findAll();
 		if (usersList.size() > 0) {
+			System.out.println("aqui hay algo...  " + usersList.toString());
 			return usersList; // if >single item is present JP
 
 		} else {
+			System.out.println("esto esta vacio...  " + usersList.toString());
 			return new ArrayList<UserModel>(); // if empty, creates ArrayList JP
 		}
 	}
-	
 
 	public UserModel insertNewUser(UserModel entity) {
-		
+
 		Boolean inDB = userRepo.findById(entity.getUsername()).isPresent();
-		
-		System.out.println(inDB);
-		if (inDB){
-			System.out.println("Username: "  + entity.getUsername() + "is in the DB"   );
-						
-		}else {
-			System.out.println("Username: "  + entity.getUsername() + "IS NOT!! in the DB"   );
-			
+		if (inDB) {
+			System.out.println(
+					"Username: " + entity.getUsername() + "is in the DB");
+
+		} else {
+			System.out.println("Username: <" + entity.getUsername()
+					+ ">  IS NOT!! in the DB");
+			entity = userRepo.save(entity);
+
 		}
-		
-		
+
 		return null;
-				
-		
-		}
 
-
-	
+	}
 
 }
