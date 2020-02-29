@@ -5,18 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jpbtech.webappservice.ExceptionInDataBase;
 import com.jpbtech.webappservice.model.NameAndPassw;
-import com.jpbtech.webappservice.model.NewFullUser;
+
 import com.jpbtech.webappservice.model.UserModel;
+import com.jpbtech.webappservice.model.WraperFullUserPost;
 import com.jpbtech.webappservice.repository.NameNpassRepository;
 import com.jpbtech.webappservice.repository.UserModelRepository;
 
 @Service
-public class UserModelServiceImpl {
+public class UserServiceImpl {
 
 	@Autowired // com.jpb.displaycontrol.repositiry.ItemRepository
 	UserModelRepository userRepo;
-	
+
 	@Autowired
 	NameNpassRepository nameNpassRepo;
 
@@ -32,49 +34,39 @@ public class UserModelServiceImpl {
 		}
 	}
 
-	/**
-	 * Check what to return for unique values
-	 * @param entity
-	 * @return
-	 */
-	public String insertNewUser(UserModel entity) {
-				
-		////
-		Boolean inDB = userRepo.existsById(entity.getUsername());
+	public UserModel insertNewUser(UserModel userPost, NameAndPassw nameNpasswPost) throws ExceptionInDataBase {
 		
-		
+		UserModel userSaved = null;
 		try {
-			UserModel entitySaved = userRepo.save(entity);
-			//save nameNpass in diferent table
-			nameNpassRepo.save(new NameAndPassw(entity.getUsername(),entity.getPassword()));
-			return "Usuario salvado";
-		} catch (Exception e) {
+			userSaved = userRepo.save(userPost);
+			nameNpassRepo.save(nameNpasswPost);
+			return userSaved;
+		} catch (ExceptionInDataBase e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "Usuario no salvado ERROR!";
+			return userPost;	
 		}
 		
-
-//		if (inDB) {
-//			return "Atencion!  <" + entity.getUsername()+ "> is already in use";
-//		} else {
-//			
-//			UserModel entitySaved = userRepo.save(entity);
-//			
-//			//save nameNpass in diferent table
-//			nameNpassRepo.save(new NameAndPassw(entity.getUsername(),entity.getPassword()));
-//			
-//			return "Usuario salvado: " + entitySaved.getUsername();
-
+		
 	}
-	
-	
-	
+
+	// if (inDB) {
+	// return "Atencion! <" + entity.getUsername()+ "> is already in use";
+	// } else {
+	//
+	// UserModel entitySaved = userRepo.save(entity);
+	//
+	// //save nameNpass in diferent table
+	// nameNpassRepo.save(new
+	// NameAndPassw(entity.getUsername(),entity.getPassword()));
+	//
+	// return "Usuario salvado: " + entitySaved.getUsername();
+
+
 	public String updateUser(UserModel entity) {
 		Boolean inDB = userRepo.existsById(entity.getUsername());
-		
 		if (inDB) {
-			
+		
 			return "Usuario modificado!  <" + entity.getUsername()+ ">";
 			
 		}else {

@@ -29,8 +29,7 @@ public class NameAndPassw {
 	@Column(name = "password")
 	private String password;
 
-	public String getUsername() {
-		
+	public String getUsername() {		
 		return username;
 	}
 

@@ -45,6 +45,7 @@ public class UserModel{
 	@Column(name = "edad")
 	private int edad; //cambiar a fecha nacimiento -> Today -FN = Edad
 	
+	
 	@Size(max = 50)
 	@Column(name = "email",unique = true)
 	private String email;
@@ -53,16 +54,6 @@ public class UserModel{
 	@Column(name = "activo")
 	private Boolean activo;
 	
-	private String password;
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getUsername() {
 		return username;
 	}
