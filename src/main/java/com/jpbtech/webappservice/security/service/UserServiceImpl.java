@@ -9,7 +9,6 @@ import com.jpbtech.webappservice.ExceptionInDataBase;
 import com.jpbtech.webappservice.model.NameAndPassw;
 
 import com.jpbtech.webappservice.model.UserModel;
-import com.jpbtech.webappservice.model.WraperFullUserPost;
 import com.jpbtech.webappservice.repository.NameNpassRepository;
 import com.jpbtech.webappservice.repository.UserModelRepository;
 

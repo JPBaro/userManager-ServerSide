@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+
+
 import com.jpbtech.webappservice.ExceptionInDataBase;
 
 import com.jpbtech.webappservice.model.NameAndPassw;
@@ -38,6 +40,12 @@ public class UserMngController {
 
 	}
 
+	/**
+	 * 
+	 * @param userInfo Contains WraperFullUserPost object with: UserModel and NameAndPassw objects coming in as JSON  
+	 * @return ResponseEntity with:  {@link UserModel} object & {@link HttpStatus.OK}
+	 * @throws ExceptionInDataBase  with:  <h1>Joaquin Pampin </h1>
+	 */
 	@PostMapping
 	public ResponseEntity<UserModel> createOrUpdateItem (
 			@RequestBody WraperFullUserPost userInfo) throws ExceptionInDataBase {
@@ -46,10 +54,14 @@ public class UserMngController {
 		NameAndPassw nameNpasswPost = userInfo.getCredentials();
 		userPost.setUsername(nameNpasswPost.getUsername());
 		
-		if(userRepo.existsById(nameNpasswPost.getUsername()) ) throw new ExceptionInDataBase("Not saved : username Already in use", nameNpasswPost.getUsername())  ;
+		/*
+		 * if(!userRepo.existsById(nameNpasswPost.getUsername()) ) { throw new
+		 * ExceptionInDataBase("Not saved : username Already in use",
+		 * nameNpasswPost.getUsername()) ; }
+		 */
 		UserModel userSaved =  userService.insertNewUser(userPost, nameNpasswPost) ;
 		
-		return new ResponseEntity<UserModel>(userPost, HttpStatus.OK);
+		return new ResponseEntity<UserModel>(userSaved,  HttpStatus.ACCEPTED);
 	}
 
 
