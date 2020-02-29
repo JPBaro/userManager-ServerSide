@@ -4,7 +4,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,16 +35,27 @@ public class UserMngController {
 	public ResponseEntity<List<UserModel>> getUsersReq() {
 
 		List<UserModel> usersList = userService.getUsersInDB();
-		return new ResponseEntity<List<UserModel>>(usersList, new HttpHeaders(),
-				HttpStatus.OK);
+		
+		//usersList.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK 
+		return new ResponseEntity<List<UserModel>>(usersList,new HttpHeaders(), HttpStatus.OK);
+		
 	}
-
+		
 	@PostMapping
-	public ResponseEntity<UserModel> createOrUpdateItem(
+	public ResponseEntity<String> createOrUpdateItem(
 			@RequestBody UserModel userPost) {
 
-		UserModel userIn = userService.insertNewUser(userPost);
-		return new ResponseEntity<UserModel>(userIn, HttpStatus.OK);
+		String validation = userService.insertNewUser(userPost);
+		
+		return new ResponseEntity<String>(validation, HttpStatus.OK);
+	}
+	
+	@PutMapping
+	public ResponseEntity<String> UpdateItem(@RequestBody UserModel userPost) {
+
+		String validation = userService.insertNewUser(userPost);
+		
+		return new ResponseEntity<String>(validation, HttpStatus.OK);
 	}
 
 }

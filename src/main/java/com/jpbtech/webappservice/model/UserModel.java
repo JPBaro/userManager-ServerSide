@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -24,7 +26,7 @@ import javax.validation.constraints.Size;
 public class UserModel extends Object{
 	
 	@Id	
-	@Column(name = "username")
+	@Column(name = "username",unique = true)
 	private String username;
 		
 	@Size(min = 2, max = 100)
@@ -41,14 +43,16 @@ public class UserModel extends Object{
 	private int edad; //cambiar a fecha nacimiento -> Today -FN = Edad
 	
 	@Size(max = 50)
-	@Column(name = "email")
+	@Column(name = "email",unique = true)
 	private String email;
 	
-//	@JsonIgnore
-	
+	@JsonIgnore
 	@Size(min = 6, max = 100)
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "activo")
+	private Boolean activo;
 
 	public String getUsername() {
 		return username;
@@ -98,19 +102,13 @@ public class UserModel extends Object{
 		this.password = password;
 	}
 
-	//REVISAR  constructors
-	/*
-	 * public UserModel() {
-	 * 
-	 * } public UserModel(String username, String nombre, String apellidos, int
-	 * edad, String email, String password) { this.username = username;
-	 * this.nombre = nombre; this.apellidos = apellidos; this.edad = edad;
-	 * this.email = email; this.password = password; }
-	 */
-	
+	public Boolean getActivo() {
+		return activo;
+	}
 
-	
-	
-	
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
 
 }

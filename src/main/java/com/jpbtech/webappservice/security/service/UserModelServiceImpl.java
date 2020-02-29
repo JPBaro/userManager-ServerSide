@@ -2,6 +2,9 @@ package com.jpbtech.webappservice.security.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.swing.text.html.parser.Entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,31 +22,45 @@ public class UserModelServiceImpl {
 
 		List<UserModel> usersList = userRepo.findAll();
 		if (usersList.size() > 0) {
-			System.out.println("aqui hay algo...  " + usersList.toString());
+
 			return usersList; // if >single item is present JP
 
 		} else {
-			System.out.println("esto esta vacio...  " + usersList.toString());
 			return new ArrayList<UserModel>(); // if empty, creates ArrayList JP
 		}
 	}
 
-	public UserModel insertNewUser(UserModel entity) {
+	/**
+	 * Check what to return for unique values
+	 * @param entity
+	 * @return
+	 */
+	public String insertNewUser(UserModel entity) {
 
-		Boolean inDB = userRepo.findById(entity.getUsername()).isPresent();
+		Boolean inDB = userRepo.existsById(entity.getUsername());
+
 		if (inDB) {
-			System.out.println(
-					"Username: " + entity.getUsername() + "is in the DB");
-
+			return "Atencion!  <" + entity.getUsername()+ "> is already in use";
+			
 		} else {
-			System.out.println("Username: <" + entity.getUsername()
-					+ ">  IS NOT!! in the DB");
-			entity = userRepo.save(entity);
-
+			UserModel entitySaved = userRepo.save(entity);
+			return "Usuario salvado: " + entitySaved.getUsername();
 		}
-
+	}
+	
+	public String updateUser(UserModel entity) {
+		Boolean inDB = userRepo.existsById(entity.getUsername());
+		
+		if (inDB) {
+			
+			return "Usuario modificado!  <" + entity.getUsername()+ ">";
+			
+		}else {
+			
+		}
+		
 		return null;
-
+			
 	}
 
 }
