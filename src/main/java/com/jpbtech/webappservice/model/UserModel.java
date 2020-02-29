@@ -4,10 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,12 +22,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name="usersdb")
-public class UserModel extends Object{
+public class UserModel{
 	
 	@Id	
 	@Column(name = "username",unique = true)
 	private String username;
-		
+	
+	/*
+	 * @OneToOne(mappedBy="username") private NameAndPassw nameNpass;
+	 */
+	
 	@Size(min = 2, max = 100)
 	@Column(name = "nombre")
 	private String nombre;
@@ -46,13 +49,19 @@ public class UserModel extends Object{
 	@Column(name = "email",unique = true)
 	private String email;
 	
-	@JsonIgnore
-	@Size(min = 6, max = 100)
-	@Column(name = "password")
-	private String password;
-	
+		
 	@Column(name = "activo")
 	private Boolean activo;
+	
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getUsername() {
 		return username;
@@ -94,13 +103,6 @@ public class UserModel extends Object{
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Boolean getActivo() {
 		return activo;

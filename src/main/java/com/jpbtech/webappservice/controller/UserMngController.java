@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jpbtech.webappservice.exceptions.ItemNotFoundException;
+import com.jpbtech.webappservice.model.NewFullUser;
 import com.jpbtech.webappservice.model.UserModel;
 import com.jpbtech.webappservice.repository.UserModelRepository;
 import com.jpbtech.webappservice.security.service.UserModelServiceImpl;
@@ -42,20 +43,20 @@ public class UserMngController {
 	}
 		
 	@PostMapping
-	public ResponseEntity<String> createOrUpdateItem(
-			@RequestBody UserModel userPost) {
+	public ResponseEntity<String> createOrUpdateItem(@RequestBody UserModel userPost) {
 
 		String validation = userService.insertNewUser(userPost);
 		
 		return new ResponseEntity<String>(validation, HttpStatus.OK);
 	}
 	
-	@PutMapping
-	public ResponseEntity<String> UpdateItem(@RequestBody UserModel userPost) {
-
-		String validation = userService.insertNewUser(userPost);
-		
-		return new ResponseEntity<String>(validation, HttpStatus.OK);
-	}
+	/*
+	 * @PutMapping public ResponseEntity<String> UpdateItem(@RequestBody
+	 * UserModel userPost) {
+	 * 
+	 * String validation = userService.insertNewUser(userPost);
+	 * 
+	 * return new ResponseEntity<String>(validation, HttpStatus.OK); }
+	 */
 
 }
