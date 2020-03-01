@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 //import com.jpbtech.webappservice.exceptions.ExceptionInDataBase;
-import com.jpbtech.webappservice.model.NameAndPassw;
+import com.jpbtech.webappservice.model.UsernameAndPassw;
 
-import com.jpbtech.webappservice.model.UserModel;
-import com.jpbtech.webappservice.model.WraperFullUserPost;
-import com.jpbtech.webappservice.repository.NameNpassRepository;
-import com.jpbtech.webappservice.repository.UserModelRepository;
+import com.jpbtech.webappservice.model.UsuarioInfo;
+
+import com.jpbtech.webappservice.repository.UsernameAndPasswRepo;
+import com.jpbtech.webappservice.repository.UsarioInfoRepo;
 import com.jpbtech.webappservice.resources.exceptions.ExceptionInDataBase;
 import com.jpbtech.webappservice.resources.exceptions.ExceptionUserConflict;
 
@@ -21,33 +21,32 @@ import com.jpbtech.webappservice.resources.exceptions.ExceptionUserConflict;
 public class UserServiceImpl {
 
 	@Autowired // com.jpb.displaycontrol.repositiry.ItemRepository
-	UserModelRepository userRepo;
+	UsarioInfoRepo userRepo;
 
 	@Autowired
-	NameNpassRepository nameNpassRepo;
+	UsernameAndPasswRepo nameNpassRepo;
 
-	public List<UserModel> getUsersInDB() {
+	public List<UsuarioInfo> getUsersInDB() {
 
-		List<UserModel> usersList = userRepo.findAll();
+		List<UsuarioInfo> usersList = userRepo.findAll();
 		
 		if (usersList.size() > 0) {
 			return usersList; // if >single item is present JP
 		} else {
-			return new ArrayList<UserModel>(); // if empty, creates ArrayList JP
+			return new ArrayList<UsuarioInfo>(); // if empty, creates ArrayList JP
 		}
 	}
 
-	public String insertNewUser(UserModel userInfo, NameAndPassw nameAndPassw) {
-		
-		userRepo.save(userInfo);
-		nameNpassRepo.save(nameAndPassw);
+	/*
+	 * public String insertNewUser(UsuarioInfo userInfo) {
+	 * 
+	 * 
+	 * return "saved!!!";
+	 * 
+	 * }
+	 */
 
-		
-		return "saved!!!";
-
-	}
-
-	public String updateUser(UserModel entity) {
+	public String updateUser(UsuarioInfo entity) {
 		
 		return null;
 

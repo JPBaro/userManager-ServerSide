@@ -21,13 +21,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name="userskeys")
-public class NameAndPassw {
+public class UsernameAndPassw {
 	
-		
-	@OneToOne(mappedBy = "username")
-	private String userModel;
 	@Id
-	@Column(name = "usernamek")
+	@Column(name = "username")
 	private String username;
 	
 	@NotEmpty
@@ -35,13 +32,19 @@ public class NameAndPassw {
 	@Column(name = "password")
 	private String password;
 
-	public String getUsernamek() {		
+	
+	public UsernameAndPassw(String username, @NotEmpty @Size(min = 6, max = 20) String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	public String getUsername() {		
 		return username;
 	}
 
-	public void setUsernamek(String username) {
+	public void setUsername(String username) {
 		this.username = username;
-		//userModel.setUsername(username);
 	}
 
 	public String getPassword() {

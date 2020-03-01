@@ -1,38 +1,42 @@
-package com.jpbtech.webappservice.model;
+package com.jpbtech.webappservice.resources.mapedmessag;
+
+import com.jpbtech.webappservice.model.PasswordKey;
+import com.jpbtech.webappservice.model.UsuarioInfo;
 
 /**
  * 
- * @implNote class Wrapper which host: {@link UserModel} && {@link NameAndPassw} 
- *
+ * @implNote class which host: {@link UsuarioInfo} and {@link PasswordKey} to handle POST Body
+ * 
  * @author Joaquin Pampin
  */
-public class WraperFullUserPost extends UserModel {
+public class WrapperRequestPost{
+	
+	UsuarioInfo userInfo;
+	PasswordKey password;
+	
+	public WrapperRequestPost(UsuarioInfo userInfo, PasswordKey password) {
+		this.userInfo = userInfo;
+		this.password = password;
+	}
 
-	UserModel user;
-	NameAndPassw credenciales;
+	public UsuarioInfo getUserInfo() {
+		return userInfo;
+	}
 
-	/**
-	 * @param user
-	 * @param credentials
-	 */
-	public WraperFullUserPost(UserModel user, NameAndPassw credentials) {
-		//Constructor
-		
-		super();
-		this.user = user;
-		this.credenciales = credentials;
+	public void setUserInfo(UsuarioInfo userInfo) {
+		this.userInfo = userInfo;
 	}
-	public UserModel getUser() {
-		return user;
+
+	public void setPassword(PasswordKey password) {
+		this.password = password;
 	}
-	public void setUser(UserModel user) {
-		this.user = user;
+
+	public PasswordKey getPassword() {
+		return password;
 	}
-	public NameAndPassw getCredentials() {
-		return credenciales;
-	}
-	public void setCredentials(NameAndPassw credenciales) {
-		this.credenciales = credenciales;
-	}
+	
+	
+	
+
 
 }

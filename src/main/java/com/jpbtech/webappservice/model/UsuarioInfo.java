@@ -29,18 +29,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "usersdb")
-public class UserModel {
+public class UsuarioInfo {
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "username")
-	@JoinColumn(name = "username", referencedColumnName = "usernamek")
-	private String username;
-	
-	//@Column(name = "username")
-	//private String username;
-
-	/*
-	 * @OneToOne(mappedBy="username") private NameAndPassw nameNpass;
-	 */
 	@NotEmpty
 	@Size(min = 2, max = 100)
 	@Column(name = "nombre")
@@ -63,16 +53,20 @@ public class UserModel {
 	private String email;
 
 	@NotNull
+	@Column(name = "username")
+	private String username;
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@NotNull
 	@Column(name = "activo")
 	private Boolean activo;
-
-//	public String getUsername() {
-//		return username;
-//	}
-//
-//	public void setUsername(String username) {
-//		this.username = username;
-//	}
 
 	public String getNombre() {
 		return nombre;
