@@ -1,6 +1,4 @@
-package com.jpbtech.webappservice.resources.mapedmessag;
-
-import com.jpbtech.webappservice.model.PasswordKey;
+package com.jpbtech.webappservice.resources.messagehandler;
 import com.jpbtech.webappservice.model.UsuarioInfo;
 
 /**
@@ -9,12 +7,12 @@ import com.jpbtech.webappservice.model.UsuarioInfo;
  * 
  * @author Joaquin Pampin
  */
-public class WrapperRequestPost{
+public class NewUserPostWrapper{
 	
 	UsuarioInfo userInfo;
-	PasswordKey password;
+	String password;
 	
-	public WrapperRequestPost(UsuarioInfo userInfo, PasswordKey password) {
+	public NewUserPostWrapper(UsuarioInfo userInfo, String password) {
 		this.userInfo = userInfo;
 		this.password = password;
 	}
@@ -27,11 +25,11 @@ public class WrapperRequestPost{
 		this.userInfo = userInfo;
 	}
 
-	public void setPassword(PasswordKey password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public PasswordKey getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	

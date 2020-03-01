@@ -13,35 +13,30 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @RestController
 public class ResponseEntityExceptHandler extends ResponseEntityExceptionHandler {
-
-	@ExceptionHandler(ExceptionUserConflict.class)
-	public final ResponseEntity<ErrorDetails> handleUserNotFoundException(ExceptionUserConflict ex,
-							WebRequest request) {
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-								request.getDescription(false));
-		return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
-	}
-
-	@ExceptionHandler(ExceptionInDataBase.class)
-	public final ResponseEntity<ExceptionInDataBase> handleAllExceptions(Exception ex,
-							WebRequest request) {
-		ExceptionInDataBase exceptionResponse = new ExceptionInDataBase(new Date(), ex.getMessage(),
-								request.getDescription(false));
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	public class ErrorDetails {
-
-		private Date timestamp;
-		private String errorDescription;
-		private String errorDetails;
-
-		public ErrorDetails(Date timestamp, String errorDescription, String errorDetails) {
-			super();
-			this.timestamp = timestamp;
-			this.errorDescription = errorDescription;
-			this.errorDetails = errorDetails;
-		}
-
-	}
+	/*
+	 * @ExceptionHandler(ExceptionUserConflict.class) public final
+	 * ResponseEntity<ErrorDetails> ExceptionUserConflict(ExceptionUserConflict
+	 * ex, WebRequest request) { ErrorDetails errorDetails = new
+	 * ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+	 * return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT); }
+	 * 
+	 * @ExceptionHandler(ExceptionInDataBase.class) public final
+	 * ResponseEntity<ExceptionInDataBase> handleAllExceptions(Exception ex,
+	 * WebRequest request) { ExceptionInDataBase exceptionResponse = new
+	 * ExceptionInDataBase(new Date(), ex.getMessage(),
+	 * request.getDescription(false)); return new
+	 * ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR); }
+	 * 
+	 * public class ErrorDetails {
+	 * 
+	 * private Date timestampE; private String errorDescriptionE; private String
+	 * errorDetailsE;
+	 * 
+	 * public ErrorDetails(Date timestamp, String errorDescription, String
+	 * errorDetails) { super(); this.timestampE = timestamp;
+	 * this.errorDescriptionE = errorDescription; this.errorDetailsE =
+	 * errorDetails; }
+	 * 
+	 * }
+	 */
 }

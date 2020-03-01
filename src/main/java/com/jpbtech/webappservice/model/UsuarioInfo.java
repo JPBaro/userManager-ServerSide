@@ -1,36 +1,18 @@
 package com.jpbtech.webappservice.model;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-
-/**
- * Create standard entity for DB. Pending to review if using @jsonIgnore in
- * service is enough to avoid getting passw on request or another entity for
- * response should be created
- * 
- * @author jpb
- *
- */
 
 @Entity
 @Table(name = "usersdb")
 public class UsuarioInfo {
-	
+
 	@NotEmpty
 	@Size(min = 2, max = 100)
 	@Column(name = "nombre")
@@ -45,17 +27,17 @@ public class UsuarioInfo {
 	@Column(name = "edad")
 	private int edad; // cambiar a fecha nacimiento -> Today -FN = Edad
 
-	@Id
 	@NotEmpty
 	@Size(max = 50)
 	@Email
 	@Column(name = "email", unique = true)
 	private String email;
 
+	@Id
 	@NotNull
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
-	
+
 	public String getUsername() {
 		return username;
 	}
