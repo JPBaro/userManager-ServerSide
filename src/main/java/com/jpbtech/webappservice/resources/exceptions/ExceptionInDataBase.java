@@ -1,31 +1,33 @@
 package com.jpbtech.webappservice.resources.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import java.util.Date;
 
-@ResponseStatus (value= HttpStatus.CONFLICT)
+
 public class ExceptionInDataBase extends RuntimeException{
 
-	private static final long serialVersionUID = 1L;
 	private String exceptionDescription;
-	private Object fieldDetail;
+	private String fieldDetail;
+	private Date timestamp;
 	
-	public ExceptionInDataBase(String exceptionDescription, String fieldDetail) {
-		
-		
-		super(exceptionDescription+"- oh NOOO ! - "+fieldDetail);
+	public ExceptionInDataBase(Date timestamp, String exceptionDescription, String fieldDetail) {
+				
+		super();
+		this.timestamp = timestamp;
 		this.exceptionDescription = exceptionDescription;
 		this.fieldDetail = fieldDetail;
-		System.out.println("EXCEPTIOOOOOOOOON!!");
 	}
 	
 	public String getExceptionDetail() {
 		return exceptionDescription;
 		}
 	
-	public Object getFieldValue() {
+	public String getFieldValue() {
 		return fieldDetail;
 		}
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
 	
 	
 

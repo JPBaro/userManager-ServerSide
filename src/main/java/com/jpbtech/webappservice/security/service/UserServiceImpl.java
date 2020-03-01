@@ -15,6 +15,7 @@ import com.jpbtech.webappservice.model.WraperFullUserPost;
 import com.jpbtech.webappservice.repository.NameNpassRepository;
 import com.jpbtech.webappservice.repository.UserModelRepository;
 import com.jpbtech.webappservice.resources.exceptions.ExceptionInDataBase;
+import com.jpbtech.webappservice.resources.exceptions.ExceptionUserConflict;
 
 @Service
 public class UserServiceImpl {
@@ -28,6 +29,7 @@ public class UserServiceImpl {
 	public List<UserModel> getUsersInDB() {
 
 		List<UserModel> usersList = userRepo.findAll();
+		
 		if (usersList.size() > 0) {
 			return usersList; // if >single item is present JP
 		} else {
@@ -35,44 +37,18 @@ public class UserServiceImpl {
 		}
 	}
 
-	public UserModel insertNewUser(WraperFullUserPost userInfo)
-			throws ExceptionInDataBase {
+	public String insertNewUser(UserModel userInfo, NameAndPassw nameAndPassw) {
+		
+		userRepo.save(userInfo);
+		nameNpassRepo.save(nameAndPassw);
 
-		NameAndPassw nameNpasswPost = userInfo.getCredentials();
-		String usernamePost = nameNpasswPost.getUsername();
-
-		UserModel userPost = userInfo.getUser();
-		userPost.setUsername(usernamePost);
-
-		if (userRepo.findById(usernamePost).isPresent()
-				|| nameNpassRepo.findById(usernamePost).isPresent()) {
-
-			throw new ExceptionInDataBase("Username ya en uso: ",
-					userPost.getUsername());
-		} else {
-
-			try {
-				UserModel entitySaved = userRepo.save(userPost);
-				nameNpassRepo.save(nameNpasswPost);
-				return entitySaved;
-
-			} catch (ExceptionInDataBase e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return userPost;
-			}
-
-		}
+		
+		return "saved!!!";
 
 	}
 
 	public String updateUser(UserModel entity) {
-		Boolean inDB = userRepo.existsById(entity.getUsername());
-		if (inDB) {
-			return "Usuario modificado!  <" + entity.getUsername() + ">";
-		} else {
-		}
-
+		
 		return null;
 
 	}

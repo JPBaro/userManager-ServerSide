@@ -3,42 +3,45 @@ package com.jpbtech.webappservice.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/**
+ * Class to hold <b>username</b> && <b>password</b> in separate table "userskeys" for future auth.
+ * {@code}
+ * @author jpb
+ *
+ */
+
 @Entity
 @Table (name="userskeys")
 public class NameAndPassw {
-
-	public NameAndPassw() {}
 	
-	public NameAndPassw(String username, String password) {
-		// TODO Auto-generated constructor stub
-		this.username = username;
-		this.password=password;	
-	}
-	@NotEmpty
-	@Id	
-	@Column(name = "username",unique = true)
+		
+	@OneToOne(mappedBy = "username")
+	private String userModel;
+	@Id
+	@Column(name = "usernamek")
 	private String username;
 	
-	/*
-	 * @OneToOne private UserModel user;
-	 */
 	@NotEmpty
 	@Size(min = 6, max = 20)
 	@Column(name = "password")
 	private String password;
 
-	public String getUsername() {		
+	public String getUsernamek() {		
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsernamek(String username) {
 		this.username = username;
+		//userModel.setUsername(username);
 	}
 
 	public String getPassword() {

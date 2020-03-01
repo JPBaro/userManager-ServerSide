@@ -1,38 +1,43 @@
 package com.jpbtech.webappservice.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 /**
- * Create standard entity for DB. Pending to review 
- * if using @jsonIgnore in service
- * is enough to avoid getting passw on request 
- * or another entity for response should be created 
+ * Create standard entity for DB. Pending to review if using @jsonIgnore in
+ * service is enough to avoid getting passw on request or another entity for
+ * response should be created
+ * 
  * @author jpb
  *
  */
 
 @Entity
-@Table (name="usersdb")
-public class UserModel{
+@Table(name = "usersdb")
+public class UserModel {
 	
-	
-	@Id	
-	@Column(name = "username",unique = true)
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "username")
+	@JoinColumn(name = "username", referencedColumnName = "usernamek")
 	private String username;
 	
+	//@Column(name = "username")
+	//private String username;
+
 	/*
 	 * @OneToOne(mappedBy="username") private NameAndPassw nameNpass;
 	 */
@@ -48,25 +53,26 @@ public class UserModel{
 
 	@NotNull
 	@Column(name = "edad")
-	private int edad; //cambiar a fecha nacimiento -> Today -FN = Edad
-	
+	private int edad; // cambiar a fecha nacimiento -> Today -FN = Edad
+
+	@Id
 	@NotEmpty
 	@Size(max = 50)
 	@Email
-	@Column(name = "email",unique = true)
+	@Column(name = "email", unique = true)
 	private String email;
-	
-	@NotNull	
+
+	@NotNull
 	@Column(name = "activo")
 	private Boolean activo;
-	
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+//	public String getUsername() {
+//		return username;
+//	}
+//
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
 
 	public String getNombre() {
 		return nombre;
@@ -100,7 +106,6 @@ public class UserModel{
 		this.email = email;
 	}
 
-
 	public Boolean getActivo() {
 		return activo;
 	}
@@ -108,6 +113,5 @@ public class UserModel{
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-
 
 }

@@ -1,14 +1,26 @@
 package com.jpbtech.webappservice.model;
 
+/**
+ * 
+ * @implNote class Wrapper which host: {@link UserModel} && {@link NameAndPassw} 
+ *
+ * @author Joaquin Pampin
+ */
+public class WraperFullUserPost extends UserModel {
 
-public class WraperFullUserPost{
-	
 	UserModel user;
-	NameAndPassw credentials;
+	NameAndPassw credenciales;
+
+	/**
+	 * @param user
+	 * @param credentials
+	 */
 	public WraperFullUserPost(UserModel user, NameAndPassw credentials) {
+		//Constructor
+		
 		super();
 		this.user = user;
-		this.credentials = credentials;
+		this.credenciales = credentials;
 	}
 	public UserModel getUser() {
 		return user;
@@ -17,12 +29,10 @@ public class WraperFullUserPost{
 		this.user = user;
 	}
 	public NameAndPassw getCredentials() {
-		return credentials;
+		return credenciales;
 	}
-	public void setCredentials(NameAndPassw credentials) {
-		this.credentials = credentials;
+	public void setCredentials(NameAndPassw credenciales) {
+		this.credenciales = credenciales;
 	}
-	
-	
-	
+
 }

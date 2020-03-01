@@ -44,25 +44,20 @@ public class UserMngController {
 	 * @param userInfo
 	 *            Contains WraperFullUserPost object with: UserModel and
 	 *            NameAndPassw objects coming in as JSON. Passes Objaect to {@link UserServiceImpl}
-	 * @return ResponseEntity with: {@link UserModel} object &
-	 *         {@link HttpStatus.OK}
+	 * @return ResponseEntity 
+	 * 
 	 * @throws ExceptionInDataBase
-	 *             with:
-	 *             <h1>Joaquin Pampin</h1>
+	 * @author jpb
 	 */
 	@PostMapping("/main")
-	public ResponseEntity<Object> createOrUpdateItem(@RequestBody WraperFullUserPost userInfo) throws ExceptionInDataBase  {		
-			
-		UserModel userSaved =null;
-		try {
-			userSaved = userService.insertNewUser(userInfo);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-		} catch (ExceptionInDataBase e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.IM_USED).build();
-		}
-			
+	public String createOrUpdateItem(@RequestBody WraperFullUserPost userInfo) throws ExceptionInDataBase  {		
+
+		NameAndPassw nameNpasswPost = userInfo.getCredentials();
+		UserModel userPost = userInfo.getUser();
 		
+		String response =userService.insertNewUser(userPost, nameNpasswPost);
+		
+		return response;
 	}
 
 	@PutMapping("/main/email/{value}")
