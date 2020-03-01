@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table (name="userskeys")
@@ -17,7 +20,7 @@ public class NameAndPassw {
 		this.username = username;
 		this.password=password;	
 	}
-	
+	@NotEmpty
 	@Id	
 	@Column(name = "username",unique = true)
 	private String username;
@@ -25,6 +28,7 @@ public class NameAndPassw {
 	/*
 	 * @OneToOne private UserModel user;
 	 */
+	@NotEmpty
 	@Size(min = 6, max = 20)
 	@Column(name = "password")
 	private String password;

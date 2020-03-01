@@ -4,7 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,6 +28,7 @@ import javax.validation.constraints.Size;
 @Table (name="usersdb")
 public class UserModel{
 	
+	
 	@Id	
 	@Column(name = "username",unique = true)
 	private String username;
@@ -31,26 +36,27 @@ public class UserModel{
 	/*
 	 * @OneToOne(mappedBy="username") private NameAndPassw nameNpass;
 	 */
-	
+	@NotEmpty
 	@Size(min = 2, max = 100)
 	@Column(name = "nombre")
 	private String nombre;
 
-	
+	@NotEmpty
 	@Size(max = 100)
 	@Column(name = "apellidos")
 	private String apellidos;
 
-	
+	@NotNull
 	@Column(name = "edad")
 	private int edad; //cambiar a fecha nacimiento -> Today -FN = Edad
 	
-	
+	@NotEmpty
 	@Size(max = 50)
+	@Email
 	@Column(name = "email",unique = true)
 	private String email;
 	
-		
+	@NotNull	
 	@Column(name = "activo")
 	private Boolean activo;
 	

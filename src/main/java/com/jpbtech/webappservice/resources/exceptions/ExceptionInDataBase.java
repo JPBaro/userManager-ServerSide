@@ -1,4 +1,4 @@
-package com.jpbtech.webappservice;
+package com.jpbtech.webappservice.resources.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,9 +12,11 @@ public class ExceptionInDataBase extends RuntimeException{
 	
 	public ExceptionInDataBase(String exceptionDescription, String fieldDetail) {
 		
+		
 		super(exceptionDescription+"- oh NOOO ! - "+fieldDetail);
 		this.exceptionDescription = exceptionDescription;
 		this.fieldDetail = fieldDetail;
+		System.out.println("EXCEPTIOOOOOOOOON!!");
 	}
 	
 	public String getExceptionDetail() {
