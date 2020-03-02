@@ -6,5 +6,6 @@ import com.jpbtech.webappservice.model.PassKeyUsers;
 
 public interface PassKeysUsersRepository extends JpaRepository<PassKeyUsers, String>{
 	
+	
 
 }

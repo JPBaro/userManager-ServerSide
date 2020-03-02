@@ -7,14 +7,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-//import com.jpbtech.webappservice.exceptions.ExceptionInDataBase;
 import com.jpbtech.webappservice.model.PassKeyUsers;
-
 import com.jpbtech.webappservice.model.UsuarioInfo;
-
 import com.jpbtech.webappservice.repository.PassKeysUsersRepository;
 import com.jpbtech.webappservice.repository.UsuarioInfoRepository;
 import com.jpbtech.webappservice.resources.exceptions.ExceptionInDataBase;
@@ -31,11 +28,13 @@ import com.jpbtech.webappservice.resources.messagehandler.NewUserPostWrapper;
 @Service
 public class UserServiceImpl {
 
-	@Autowired // com.jpb.displaycontrol.repositiry.ItemRepository
+	@Autowired
 	UsuarioInfoRepository userRepo;
 
 	@Autowired
-	PassKeysUsersRepository nameNpassRepo;
+	PassKeysUsersRepository passNkeyRepo;
+
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public List<UsuarioInfo> getAllUsersInDB() {
 
@@ -45,7 +44,7 @@ public class UserServiceImpl {
 			return usersList; // if >single item is present JP
 		else
 			return new ArrayList<UsuarioInfo>(); // if empty, creates ArrayList
-													// JP
+
 	}
 
 <<<<<<< Updated upstream
@@ -144,12 +143,13 @@ public class UserServiceImpl {
 		if (processValidation(userPosted.getUsername()))
 			throw new ExceptionInDataBase(new Date(), userPosted.getUsername());
 
-		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(), entity.getPassword());
-		// userVkey.setUsername(userPosted.getUsername()) ;
-		// userVkey.setPassword(entity.getPassword());
+		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
+								bCryptPasswordEncoder.encode(entity.getPassword())); // enctriptacion
+																						// password
 
-		nameNpassRepo.save(userVkey); // save "username and password" in table x
-		userRepo.save(userPosted); // save "user information without password" in table y									
+		passNkeyRepo.save(userVkey); // save "username and password" in table x
+		userRepo.save(userPosted); // save "user information without password"
+									// in table y
 
 		return HttpStatus.OK;
 
@@ -160,27 +160,22 @@ public class UserServiceImpl {
 		if (!processValidation(userRemove))
 			throw new ExceptionInDataBase(new Date(), userRemove);
 
-		
 		userRepo.deleteById(userRemove);
-		nameNpassRepo.deleteById(userRemove);
+		passNkeyRepo.deleteById(userRemove);
 	}
 
-	
 	public void updateUserBy(UsuarioInfo userUpdate) throws ExceptionInDataBase {
-		
+
 		if (processValidation(userUpdate.getUsername()))
 			throw new ExceptionInDataBase(new Date(), userUpdate.getUsername());
 
 		Optional<UsuarioInfo> userToUpdate = userRepo.findById(userUpdate.getUsername());
-		
+
 		if (!userToUpdate.isPresent())
 			throw new ExceptionInDataBase(new Date(), userUpdate.getUsername());
-		
+
 	}
-		
-	
-	
-	
+
 	/**
 	 * Ckecks if given username is present in all tables DB linked to the
 	 * entities : {@link UsuarioInfo} & {@link PassKeyUsers}
@@ -195,7 +190,7 @@ public class UserServiceImpl {
 	 */
 	public boolean processValidation(String username) {
 
-		boolean check = userRepo.existsById(username) || nameNpassRepo.existsById(username);
+		boolean check = userRepo.existsById(username) || passNkeyRepo.existsById(username);
 		return check;
 	}
 >>>>>>> Estructura basica terminada. Pendiente limpieza y filtering sorting paging queries
