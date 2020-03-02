@@ -85,7 +85,7 @@ public class UserMngController {
 	@PutMapping("/users/{username}")
 	public ResponseEntity<String> UpdateUserBy(@PathVariable String username,@RequestBody UsuarioInfo userUpdate) throws ExceptionInDataBase {
 		
-		if (username!= userUpdate.getUsername())
+		if (!userUpdate.getUsername().contentEquals(username))  //check id in uri vs json
 			throw new ExceptionInDataBase(new Date(), "Missmatch - Conflicto");
 		
 		userService.updateUserBy(userUpdate);
