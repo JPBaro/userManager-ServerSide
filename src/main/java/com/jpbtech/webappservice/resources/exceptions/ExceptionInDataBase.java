@@ -10,15 +10,14 @@ public class ExceptionInDataBase extends Exception {
 
 	
 	private static final long serialVersionUID = 1L;
-	private String exceptionDescription;
+	private String exceptionDescription = "Conflicto en registro/cotejo de Usuario";
 	private String fieldDetail;
 	private Date timestamp;
 	
-	public ExceptionInDataBase(Date timestamp, String exceptionDescription, String fieldDetail) {
+	public ExceptionInDataBase(Date timestamp, String fieldDetail) {
 				
 		super();
 		this.timestamp = timestamp;
-		this.exceptionDescription = exceptionDescription;
 		this.fieldDetail = fieldDetail;
 	}
 	

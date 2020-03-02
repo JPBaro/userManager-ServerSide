@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,30 +15,34 @@ import javax.validation.constraints.Size;
 @Table(name = "usersdb")
 public class UsuarioInfo {
 
-	@NotEmpty
+	@NotEmpty(message = "Nombre es requerido!" )
 	@Size(min = 2, max = 100)
-	@Column(name = "nombre")
+	@Column(name = "name")
 	private String nombre;
 
-	@NotEmpty
-	@Size(max = 100)
-	@Column(name = "apellidos")
+	@NotEmpty(message = "Apellidos son requeridos!" )
+	@Size(max = 100, message = "Maximo 100 caracteres!")
+	@Column(name = "familyname")
 	private String apellidos;
 
-	@NotNull
-	@Column(name = "edad")
+	@Min(value = 18)@Max(value=70)	
+	@Column(name = "age")
 	private int edad; // cambiar a fecha nacimiento -> Today -FN = Edad
 
 	@NotEmpty
 	@Size(max = 50)
-	@Email
+	@Email(message = "Formato de Email no valido! < ejemplo@company.org > " )
 	@Column(name = "email", unique = true)
 	private String email;
 
 	@Id
-	@NotNull
+	@NotEmpty(message = "Debe introducir <username> !")
 	@Column(name = "username", unique = true)
 	private String username;
+	
+	//@NotNull(message = "Debe si el usuario esta activo <1> o no activo <0>  !")
+	@Column(name = "status")
+	private int activo;
 
 	public String getUsername() {
 		return username;
@@ -45,10 +51,6 @@ public class UsuarioInfo {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	@NotNull
-	@Column(name = "activo")
-	private Boolean activo;
 
 	public String getNombre() {
 		return nombre;
@@ -82,11 +84,11 @@ public class UsuarioInfo {
 		this.email = email;
 	}
 
-	public Boolean getActivo() {
+	public int getActivo() {
 		return activo;
 	}
 
-	public void setActivo(Boolean activo) {
+	public void setActivo(int activo) {
 		this.activo = activo;
 	}
 

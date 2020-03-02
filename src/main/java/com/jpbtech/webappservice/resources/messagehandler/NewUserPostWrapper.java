@@ -9,20 +9,20 @@ import com.jpbtech.webappservice.model.UsuarioInfo;
  */
 public class NewUserPostWrapper{
 	
-	UsuarioInfo userInfo;
+	UsuarioInfo userinfo;
 	String password;
 	
-	public NewUserPostWrapper(UsuarioInfo userInfo, String password) {
-		this.userInfo = userInfo;
+	public NewUserPostWrapper(UsuarioInfo userinfo, String password) {
+		this.userinfo = userinfo;
 		this.password = password;
 	}
 
 	public UsuarioInfo getUserInfo() {
-		return userInfo;
+		return userinfo;
 	}
 
 	public void setUserInfo(UsuarioInfo userInfo) {
-		this.userInfo = userInfo;
+		this.userinfo = userInfo;
 	}
 
 	public void setPassword(String password) {

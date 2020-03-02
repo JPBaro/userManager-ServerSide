@@ -2,11 +2,14 @@ package com.jpbtech.webappservice.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
@@ -23,60 +26,65 @@ import com.jpbtech.webappservice.service.UserServiceImpl;
 
 
 @RestController
+@RequestMapping("/manager-tool")
 public class UserMngController {
 
 	@Autowired
 	UserServiceImpl userService;
-	
-//-----	// GET USER(S)-------------------------------------------------------------------------------------------
 
-	@GetMapping("/team")
-	public ResponseEntity<List<UsuarioInfo>> getUsersReq() {
+//#############################################################################################################	
+//TEAM// GET USER(S)-------------------------------------------------------------------------------------------
+
+	@GetMapping("/users")
+	public ResponseEntity<List<UsuarioInfo>> getUserAll() {
 
 		List<UsuarioInfo> usersList = userService.getAllUsersInDB();
 		return new ResponseEntity<List<UsuarioInfo>>(usersList, HttpStatus.OK);
 	}
-
-	// GET USER BY ID
-	@GetMapping("/user/{username}")
-	public ResponseEntity<UsuarioInfo> getUsersByUsername(@PathVariable("username") String userName)
-							throws Exception {
+	
+//#############################################################################################################
+// GET USER BY ID
+	
+	@GetMapping("/users/{username}")
+	public ResponseEntity<Optional<UsuarioInfo>> getUserByUsername(
+							@PathVariable("username") String userName
+							
+							)throws ExceptionInDataBase  {
 		
-		return new ResponseEntity<UsuarioInfo>(new UsuarioInfo(), HttpStatus.OK);
-
+		Optional<UsuarioInfo> userinfo = userService.getUsersByUsername(userName);
+		
+		return  new ResponseEntity<Optional<UsuarioInfo>>(userinfo,HttpStatus.OK);								
 	}
-//-----	// POST NEW USER ----------------------------------------------------------------------------------------
-	@PostMapping(value = "/user", consumes = "applications/json")
-	public HttpStatus createOrUpdateItem(@RequestBody NewUserPostWrapper userPosted)
-							throws ExceptionInDataBase {
+	
+// POST NEW USER ----------------------------------------------------------------------------------------
+	
+	@PostMapping("/users")
+	public HttpStatus createUser(@RequestBody NewUserPostWrapper userPosted) throws ExceptionInDataBase{
 
 		return userService.insertNewUser(userPosted);
-
 	}
+	
+// DELETE USER (by Username)------------------------------------------------------------------------------
+	@DeleteMapping("/users/{username}")
+	public HttpStatus removeUserByUsername(@PathVariable("username") String userName)throws ExceptionInDataBase {
 
-//-----	//PUT   UPDATE USER ----------------------------------------------------------------------------------------
+		userService.deleteUser(userName) ;
+		return HttpStatus.OK;
+	}	
+	
+//#############################################################################################################
+//-----	//PUT   UPDATE USER -------------------------------------------------------------------------
 
-	@PutMapping("/main/{username}/email")
-	public ResponseEntity<String> UpdateUserEmail() {
+	@PutMapping("/users/{username}")
+	public ResponseEntity<String> UpdateUserBy(@PathVariable String username,@RequestBody UsuarioInfo userUpdate) throws ExceptionInDataBase {
+		
+		if (username!= userUpdate.getUsername())
+			throw new ExceptionInDataBase(new Date(), "Missmatch - Conflicto");
+		
+		userService.updateUserBy(userUpdate);
 		return new ResponseEntity<String>("validation", HttpStatus.OK);
 	}
 	
-	@PutMapping("/main/{username}/estado")
-	public ResponseEntity<String> UpdateUserStatus() {
-		return new ResponseEntity<String>("validation", HttpStatus.OK);
-	}
-	
-	@PutMapping("/main/{username}/username")
-	public ResponseEntity<String> UpdateUsername() {
-		return new ResponseEntity<String>("validation", HttpStatus.OK);
-	}
-	
-	@PutMapping("/main/{password}/username")
-	public ResponseEntity<String> UpdatePassword() {
-		return new ResponseEntity<String>("validation", HttpStatus.OK);
-	}
-
-	
-	
+		
 	
 }
