@@ -39,32 +39,32 @@ public class UsuariosServiceController {
 	UserServiceImpl userService;
 
 	@GetMapping("/users")
-	public ResponseEntity<List<UsuarioInfo>> listAllUsers() {
+	public List<UsuarioInfo> listAllUsers() {
 
 		List<UsuarioInfo> usersList = userService.getAllUsersInDB();
-		return new ResponseEntity<List<UsuarioInfo>>(usersList, HttpStatus.OK);
+		return usersList;
 	}	
 	
 	@PostMapping("/users")
-	public HttpStatus createUser(@RequestBody NewUserPostWrapper userPosted) throws ExceptionInDataBase {
+	public ResponseEntity<Object> createUser(@RequestBody NewUserPostWrapper userPosted) throws ExceptionInDataBase {
 
-		return userService.insertNewUser(userPosted);
+		userService.insertNewUser(userPosted);
+		return new ResponseEntity<Object>("Usuarion "+userPosted.getUserInfo().getUsername()+" guardado.", HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/{username}")
-	public ResponseEntity<Optional<UsuarioInfo>> listUsersByUsername(
-							@PathVariable("username") String userName) throws ExceptionInDataBase {
+	public Optional<UsuarioInfo> listUsersByUsername(
+							@PathVariable("username") String username) throws ExceptionInDataBase {
 		
-		Optional<UsuarioInfo> userinfo = userService.getUsersByUsername(userName);
-
-		return new ResponseEntity<Optional<UsuarioInfo>>(userinfo, HttpStatus.OK);
+		Optional<UsuarioInfo> userinfo = userService.getUsersByUsername(username);
+		return userinfo;
 	}
 
 	@DeleteMapping("/users/{username}")
-	public HttpStatus removeUserByUsername(@PathVariable("username") String userName) throws ExceptionInDataBase {
+	public ResponseEntity<Object> removeUserByUsername(@PathVariable("username") String userName) throws ExceptionInDataBase {
 
 		userService.deleteUser(userName);
-		return HttpStatus.OK;
+		return new ResponseEntity<Object>("Usuario eliminado: "+userName , HttpStatus.OK);
 	}
 
 	@PutMapping("/users/{username}")
@@ -72,10 +72,10 @@ public class UsuariosServiceController {
 							throws ExceptionInDataBase {
 
 		if (!userUpdate.getUsername().contentEquals(username)) // check {username} vs "username" json
-			throw new ExceptionInDataBase(new Date(), "Missmatch - Conflicto");
+			throw new ExceptionInDataBase("Missmatch - Conflicto solicitud" + username);
 
 		userService.updateUserBy(userUpdate);
-		return new ResponseEntity<String>("validation", HttpStatus.OK);
+		return new ResponseEntity<String>("Usuario actualizado: "+username , HttpStatus.OK);
 	}
 
 	

@@ -42,7 +42,7 @@ public class UserServiceImpl {
 	public Optional<UsuarioInfo> getUsersByUsername(String username) throws ExceptionInDataBase {
 		// ------------
 		if (!processValidation(username))
-			throw new ExceptionInDataBase(new Date(), username);
+			throw new ExceptionInDataBase("Conflicto existencia < "+ username +" >");
 
 		Optional<UsuarioInfo> userTaken = userRepo.findById(username);
 		return userTaken;
@@ -54,11 +54,10 @@ public class UserServiceImpl {
 
 		// ------------
 		if (processValidation(userPosted.getUsername()))
-			throw new ExceptionInDataBase(new Date(), userPosted.getUsername());
+			throw new ExceptionInDataBase("Conflicto existencia < "+  userPosted.getUsername() +" >");
 
 		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
-								bCryptPass.encode(entity.getPassword())); // enctriptacion
-																						// password
+								bCryptPass.encode(entity.getPassword())); // enctriptacion// password
 
 		passNkeyRepo.save(userVkey); // save "username and password" in table x
 		userRepo.save(userPosted); // save "user information without password"
@@ -71,7 +70,7 @@ public class UserServiceImpl {
 	public void deleteUser(String userRemove) throws ExceptionInDataBase {
 
 		if (!processValidation(userRemove))
-			throw new ExceptionInDataBase(new Date(), userRemove);
+			throw new ExceptionInDataBase("Conflicto existencia < "+  userRemove +" >");
 
 		userRepo.deleteById(userRemove);
 		passNkeyRepo.deleteById(userRemove);
@@ -80,12 +79,12 @@ public class UserServiceImpl {
 	public void updateUserBy(UsuarioInfo userUpdate) throws ExceptionInDataBase {
 
 		if (!processValidation(userUpdate.getUsername()))
-			throw new ExceptionInDataBase(new Date(), userUpdate.getUsername());
+			throw new ExceptionInDataBase("Conflicto existencia < "+  userUpdate.getUsername() +" >");
 
 		Optional<UsuarioInfo> userToUpdate = userRepo.findById(userUpdate.getUsername());
 
 		if (!userToUpdate.isPresent())
-			throw new ExceptionInDataBase(new Date(), userUpdate.getUsername());
+			throw new ExceptionInDataBase("Conflicto existencia< "+  userUpdate.getUsername() +" >");
 		
 		UsuarioInfo userUpadating = userToUpdate.get();
 		userUpadating.setEmail(userUpdate.getEmail());

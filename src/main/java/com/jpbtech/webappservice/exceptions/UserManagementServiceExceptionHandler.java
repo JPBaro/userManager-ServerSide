@@ -1,7 +1,6 @@
 package com.jpbtech.webappservice.exceptions;
 
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
@@ -29,6 +28,14 @@ public class UserManagementServiceExceptionHandler extends ResponseEntityExcepti
  
         ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, details);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+	
+	@ExceptionHandler(ExceptionInDataBase.class)
+    public final ResponseEntity<ErrorResponse> handleConflicRequestDB(ExceptionInDataBase ex,WebRequest request)
+    {
+        List<String> details = ex.getAlldetails();
+        ErrorResponse error = new ErrorResponse(HttpStatus.CONFLICT, details);
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 }
 	
