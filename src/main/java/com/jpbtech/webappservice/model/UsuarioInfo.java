@@ -10,6 +10,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
+/**
+ * Entity to host User Info back&forth at Request and Response - persistent data in Table "userdb" in DB Postresql
+ * Validate data type, not necessary is done on client side (provisional) 
+ * @author jpb
+ *
+ */
 @Entity
 @Table(name = "usersdb")
 public class UsuarioInfo {
@@ -39,7 +45,7 @@ public class UsuarioInfo {
 	@Column(name = "username", unique = true)
 	private String username;
 	
-	//@NotNull(message = "Debe si el usuario esta activo <1> o no activo <0>  !")
+	//@NotNull(message = "Debe si el usuario esta activo <1> o no activo <0>  !") 
 	@Column(name = "status")
 	private int activo;
 

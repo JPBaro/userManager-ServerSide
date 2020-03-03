@@ -1,4 +1,4 @@
-package com.jpbtech.webappservice.resources.exceptions;
+package com.jpbtech.webappservice.exceptions;
 
 import java.util.Date;
 

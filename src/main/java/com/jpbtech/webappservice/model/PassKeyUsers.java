@@ -7,31 +7,34 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-
+/**
+ * Entity to host "username" & "password" - jpa - to save in Table "userkeys" DB Posgresql configured
+ * @author jpb
+ *
+ */
 @Entity
-@Table (name="userskeys")
+@Table(name = "userskeys")
 public class PassKeyUsers {
-	
+
 	@Id
-	@Column(name = "username",unique = true)
+	@Column(name = "username", unique = true)
 	private String username;
-	
+
 	@NotEmpty(message = "Password necesario!")
 	@Size(min = 8, message = "Password de 8 a N caracteres")
 	@Column(name = "password")
 	private String password;
 
-	public PassKeyUsers() {}
-	
+	public PassKeyUsers() {
+	}
+
 	public PassKeyUsers(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
 
-
-
-	public String getUsername() {		
+	public String getUsername() {
 		return username;
 	}
 
@@ -46,6 +49,5 @@ public class PassKeyUsers {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 }

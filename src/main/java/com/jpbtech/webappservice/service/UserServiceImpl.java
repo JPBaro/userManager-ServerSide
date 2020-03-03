@@ -10,12 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jpbtech.webappservice.exceptions.ExceptionInDataBase;
 import com.jpbtech.webappservice.model.PassKeyUsers;
 import com.jpbtech.webappservice.model.UsuarioInfo;
+import com.jpbtech.webappservice.model.messagehandler.NewUserPostWrapper;
 import com.jpbtech.webappservice.repository.PassKeysUsersRepository;
 import com.jpbtech.webappservice.repository.UsuarioInfoRepository;
-import com.jpbtech.webappservice.resources.exceptions.ExceptionInDataBase;
-import com.jpbtech.webappservice.resources.messagehandler.NewUserPostWrapper;
 
 @Service
 public class UserServiceImpl {
