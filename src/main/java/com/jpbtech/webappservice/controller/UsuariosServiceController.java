@@ -30,75 +30,74 @@ import com.jpbtech.webappservice.resources.messagehandler.NewUserPostWrapper;
 import com.jpbtech.webappservice.model.UsuarioInfo;
 import com.jpbtech.webappservice.service.UserServiceImpl;
 
-
 @RestController
 @RequestMapping("/manager-tool")
 @Secured(value = {"ROLE_USER"})
-public class UserMngController {
+public class UsuariosServiceController {
 
 	@Autowired
 	UserServiceImpl userService;
 
-//#############################################################################################################	
-//TEAM// GET USER(S)-------------------------------------------------------------------------------------------
-
 	@GetMapping("/users")
-	public ResponseEntity<List<UsuarioInfo>> getUserAll() {
+	public ResponseEntity<List<UsuarioInfo>> listAllUsers() {
 
 		List<UsuarioInfo> usersList = userService.getAllUsersInDB();
 		return new ResponseEntity<List<UsuarioInfo>>(usersList, HttpStatus.OK);
 	}
 	
-//#############################################################################################################
-// GET USER BY ID
-	
-	@GetMapping("/users/{username}")
-	public ResponseEntity<Optional<UsuarioInfo>> getUserByUsername(
-							@PathVariable("username") String userName
-							
-							)throws ExceptionInDataBase  {
-		
-		Optional<UsuarioInfo> userinfo = userService.getUsersByUsername(userName);
-		
-		return  new ResponseEntity<Optional<UsuarioInfo>>(userinfo,HttpStatus.OK);								
-	}
-	
-// POST NEW USER ----------------------------------------------------------------------------------------
-	
+	// POST NEW USER
+	// ----------------------------------------------------------------------------------------
 	@PostMapping("/users")
-	public HttpStatus createUser(@RequestBody NewUserPostWrapper userPosted) throws ExceptionInDataBase{
+	public HttpStatus createUser(@RequestBody NewUserPostWrapper userPosted) throws ExceptionInDataBase {
 
 		return userService.insertNewUser(userPosted);
 	}
-	
-// DELETE USER (by Username)------------------------------------------------------------------------------
-	@DeleteMapping("/users/{username}")
-	public HttpStatus removeUserByUsername(@PathVariable("username") String userName)throws ExceptionInDataBase {
 
-		userService.deleteUser(userName) ;
+	// #############################################################################################################
+	// GET USER BY ID
+
+	@GetMapping("/users/{username}")
+	public ResponseEntity<Optional<UsuarioInfo>> listUsersByUsername(
+							@PathVariable("username") String userName
+
+	) throws ExceptionInDataBase {
+
+		Optional<UsuarioInfo> userinfo = userService.getUsersByUsername(userName);
+
+		return new ResponseEntity<Optional<UsuarioInfo>>(userinfo, HttpStatus.OK);
+	}
+
+	// DELETE // Username)------------------------------------------------------------------------------
+	@DeleteMapping("/users/{username}")
+	public HttpStatus removeUserByUsername(@PathVariable("username") String userName) throws ExceptionInDataBase {
+
+		userService.deleteUser(userName);
 		return HttpStatus.OK;
-	}	
-	
-//#############################################################################################################
-//-----	//PUT   UPDATE USER -------------------------------------------------------------------------
+	}
+
+	// #############################################################################################################
+	// ----- //PUT UPDATE USER
+	// -------------------------------------------------------------------------
 
 	@PutMapping("/users/{username}")
-	public ResponseEntity<String> UpdateUserBy(@PathVariable String username,@RequestBody UsuarioInfo userUpdate) throws ExceptionInDataBase {
-		
-		if (!userUpdate.getUsername().contentEquals(username))  //check id in uri vs json
+	public ResponseEntity<String> UpdateUserFieldsBy(@PathVariable String username, @RequestBody UsuarioInfo userUpdate)
+							throws ExceptionInDataBase {
+
+		if (!userUpdate.getUsername().contentEquals(username)) // check id in
+																// uri vs json
 			throw new ExceptionInDataBase(new Date(), "Missmatch - Conflicto");
-		
+
 		userService.updateUserBy(userUpdate);
 		return new ResponseEntity<String>("validation", HttpStatus.OK);
-	}			
-	
-	@RequestMapping(value="/logmeout", method = RequestMethod.POST)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	if (auth != null){
-	new SecurityContextLogoutHandler().logout(request, response, auth);
 	}
-	return "redirect:/login";
+
+	@RequestMapping(value = "/logmeout", method = RequestMethod.POST)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login";
 	}
-	
+
 }

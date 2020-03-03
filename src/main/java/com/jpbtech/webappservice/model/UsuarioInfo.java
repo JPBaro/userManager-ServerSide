@@ -7,7 +7,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -20,7 +19,7 @@ public class UsuarioInfo {
 	@Column(name = "name")
 	private String nombre;
 
-	@NotEmpty(message = "Apellidos son requeridos!" )
+	@NotEmpty(message = "Apellidos son requeridos" )
 	@Size(max = 100, message = "Maximo 100 caracteres!")
 	@Column(name = "familyname")
 	private String apellidos;
@@ -31,12 +30,12 @@ public class UsuarioInfo {
 
 	@NotEmpty
 	@Size(max = 50)
-	@Email(message = "Formato de Email no valido! < ejemplo@company.org > " )
+	@Email(message = "Formato de Email no valido - < ejemplo@company.org > " )
 	@Column(name = "email", unique = true)
 	private String email;
 
 	@Id
-	@NotEmpty(message = "Debe introducir <username> !")
+	@NotEmpty(message = "Debe introducir <username> ")
 	@Column(name = "username", unique = true)
 	private String username;
 	

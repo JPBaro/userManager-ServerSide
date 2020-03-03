@@ -7,16 +7,24 @@ import org.springframework.http.HttpStatus;
 public class ErrorResponse
 {
     private HttpStatus status;
+    private String message;
+    private List<String> details;
+
 
 	public ErrorResponse(HttpStatus status, List<String> details) {
         super();
         this.status = status;
         this.details = details;
     }
-  
-    private String message;
-    private List<String> details;
  
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(HttpStatus status) {
+		this.status = status;
+	}
+
     public String getMessage() {
         return message;
     }
