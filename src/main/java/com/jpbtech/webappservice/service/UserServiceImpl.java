@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jpbtech.webappservice.exceptions.ExceptionInDataBase;
@@ -25,7 +25,7 @@ public class UserServiceImpl {
 	@Autowired
 	PassKeysUsersRepository passNkeyRepo;
 
-	BCryptPasswordEncoder bCryptPass = new BCryptPasswordEncoder();
+	//BCryptPasswordEncoder bCryptPass = new BCryptPasswordEncoder();
 
 	public List<UsuarioInfo> getAllUsersInDB() {
 
@@ -55,9 +55,9 @@ public class UserServiceImpl {
 		if (processValidation(userPosted.getUsername()))
 			throw new ExceptionInDataBase("Conflicto existencia < "+  userPosted.getUsername() +" >");
 
-		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
-								bCryptPass.encode(entity.getPassword())); // enctriptacion// password
-
+	//	PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
+		//						bCryptPass.encode(entity.getPassword())); // enctriptacion// password
+		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),entity.getPassword());
 		passNkeyRepo.save(userVkey); // save "username and password" in table x
 		userRepo.save(userPosted); // save "user information without password"
 									// in table y

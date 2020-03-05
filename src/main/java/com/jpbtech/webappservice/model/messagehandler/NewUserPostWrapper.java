@@ -1,5 +1,5 @@
 package com.jpbtech.webappservice.model.messagehandler;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.jpbtech.webappservice.controller.UsuariosServiceController;
 import com.jpbtech.webappservice.model.UsuarioInfo;

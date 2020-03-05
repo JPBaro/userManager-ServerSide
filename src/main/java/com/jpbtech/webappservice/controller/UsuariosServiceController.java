@@ -2,10 +2,11 @@ package com.jpbtech.webappservice.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,9 +30,10 @@ import com.jpbtech.webappservice.model.UsuarioInfo;
 import com.jpbtech.webappservice.model.messagehandler.NewUserPostWrapper;
 import com.jpbtech.webappservice.service.UserServiceImpl;
 
+@CrossOrigin(origins = "http:/192.168.1.148:8080")
 @RestController
 @RequestMapping("/manager-tool")
-@Secured(value = {"ROLE_USER"})
+//@Secured(value = {"ROLE_USER"})
 public class UsuariosServiceController {
 
 	@Autowired
@@ -78,13 +80,15 @@ public class UsuariosServiceController {
 	}
 
 	
-	@RequestMapping(value = "/logmeout", method = RequestMethod.POST)  // Pendiente de implementar -test prov
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null)
-			new SecurityContextLogoutHandler().logout(request, response, auth);
-		
-		return "redirect:/login";
-	}
+	/*
+	 * @RequestMapping(value = "/logmeout", method = RequestMethod.POST) //
+	 * Pendiente de implementar -test prov public String
+	 * logoutPage(HttpServletRequest request, HttpServletResponse response) {
+	 * Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	 * if (auth != null) new SecurityContextLogoutHandler().logout(request,
+	 * response, auth);
+	 * 
+	 * return "redirect:/login"; }
+	 */
 
 }
