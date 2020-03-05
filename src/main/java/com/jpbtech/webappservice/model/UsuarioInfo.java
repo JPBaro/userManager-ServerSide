@@ -30,13 +30,12 @@ public class UsuarioInfo {
 	@Column(name = "familyname")
 	private String apellidos;
 
-	@Min(value = 18)@Max(value=70)	
+	@Min(value = 1)@Max(value=100)	
 	@Column(name = "age")
 	private int edad; // cambiar a fecha nacimiento -> Today -FN = Edad
 
 	@NotEmpty
 	@Size(max = 50)
-	@Email(message = "Formato de Email no valido - < ejemplo@company.org > " )
 	@Column(name = "email", unique = true)
 	private String email;
 
@@ -47,7 +46,23 @@ public class UsuarioInfo {
 	
 	//@NotNull(message = "Debe si el usuario esta activo <1> o no activo <0>  !") 
 	@Column(name = "status")
-	private int activo;
+	private boolean activo;
+
+	public UsuarioInfo() {
+		
+	}
+	public UsuarioInfo(@NotEmpty(message = "Nombre es requerido!") @Size(min = 2, max = 100) String nombre,
+							@NotEmpty(message = "Apellidos son requeridos") @Size(max = 100, message = "Maximo 100 caracteres!") String apellidos,
+							@Min(1) @Max(100) int edad, @NotEmpty @Size(max = 50) String email,
+							@NotEmpty(message = "Debe introducir <username> ") String username, boolean activo) {
+		super();
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.edad = edad;
+		this.email = email;
+		this.username = username;
+		this.activo = activo;
+	}
 
 	public String getUsername() {
 		return username;
@@ -89,11 +104,11 @@ public class UsuarioInfo {
 		this.email = email;
 	}
 
-	public int getActivo() {
+	public boolean getActivo() {
 		return activo;
 	}
 
-	public void setActivo(int activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 

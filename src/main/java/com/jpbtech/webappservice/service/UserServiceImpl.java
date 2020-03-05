@@ -47,6 +47,29 @@ public class UserServiceImpl {
 		return userTaken;
 	}
 
+	
+
+	public HttpStatus insertNewUserNopsw(UsuarioInfo entity) throws ExceptionInDataBase {
+		// ------------
+		if (processValidation(entity.getUsername()))
+			throw new ExceptionInDataBase("Conflicto existencia < "+  entity.getUsername() +" >");
+
+	//	PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
+		//						bCryptPass.encode(entity.getPassword())); // enctriptacion// password
+		
+		userRepo.save(entity); // save "user information" and psw and username in separate table JP
+											
+		// password provisional, No consigo recibir json en formato dado, desde "client angular" Jp 
+		String pswProvisional = entity.getNombre()+entity.getEdad();  
+		
+		PassKeyUsers userVkey = new PassKeyUsers(entity.getNombre(),pswProvisional);
+		passNkeyRepo.save(userVkey);
+
+		return HttpStatus.OK;
+
+	}
+
+	
 	public HttpStatus insertNewUser(NewUserPostWrapper entity) throws ExceptionInDataBase {
 
 		UsuarioInfo userPosted = entity.getUserInfo();
