@@ -30,7 +30,7 @@ import com.jpbtech.webappservice.model.UsuarioInfo;
 import com.jpbtech.webappservice.model.messagehandler.NewUserPostWrapper;
 import com.jpbtech.webappservice.service.UserServiceImpl;
 
-@CrossOrigin(origins = "http:/192.168.1.148:8080")
+@CrossOrigin(origins = "192.168.1.148:4201")
 @RestController
 @RequestMapping("/manager-tool")
 //@Secured(value = {"ROLE_USER"})
