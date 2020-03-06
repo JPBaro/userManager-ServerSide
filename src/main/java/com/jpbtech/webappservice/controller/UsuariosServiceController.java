@@ -31,7 +31,7 @@ import com.jpbtech.webappservice.model.messagehandler.NewUserPostWrapper;
 import com.jpbtech.webappservice.service.UserServiceImpl;
 
 //@Secured(value = {"ROLE_USER"})
-@CrossOrigin(origins = "192.168.1.148:4201")
+//@CrossOrigin(origins = "192.168.1.148:4201")
 @RestController
 @RequestMapping("/manager-tool")
 public class UsuariosServiceController {
@@ -49,17 +49,17 @@ public class UsuariosServiceController {
 	@PostMapping("/users")
 	public ResponseEntity<Object> createUser(@RequestBody NewUserPostWrapper userPosted) throws ExceptionInDataBase {
 
-		userService.insertNewUser(userPosted);
+	userService.insertNewUser(userPosted);
 		return new ResponseEntity<Object>("Usuarion "+userPosted.getUserInfo().getUsername()+" guardado.", HttpStatus.OK);
 	}
-	
+//----------	
 	@PostMapping("/usersnpsw")  // provisional para recibir post desde app2 angular
 	public ResponseEntity<Object> createUserNopsw(@RequestBody UsuarioInfo usuario) throws ExceptionInDataBase {
 
 		userService.insertNewUserNopsw(usuario);
 		return new ResponseEntity<Object>("Usuario guardado.", HttpStatus.OK);
 	}
-	
+	//----------	
 		
 	@GetMapping("/users/{username}")
 	public Optional<UsuarioInfo> listUsersByUsername(

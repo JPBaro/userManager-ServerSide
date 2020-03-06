@@ -21,7 +21,7 @@ public class PassKeyUsers {
 	private String username;
 
 	@NotEmpty(message = "Password necesario!")
-	@Size(min = 8, message = "Password de 8 a N caracteres")
+	@Size(min = 4, message = "Password min de 4 caracteres")
 	@Column(name = "password")
 	private String password;
 

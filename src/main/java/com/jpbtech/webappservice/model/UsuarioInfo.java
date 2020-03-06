@@ -26,7 +26,7 @@ public class UsuarioInfo {
 	private String nombre;
 
 	@NotEmpty(message = "Apellidos son requeridos" )
-	@Size(max = 100, message = "Maximo 100 caracteres!")
+	@Size(max = 120, message = "Maximo 100 caracteres!")
 	@Column(name = "familyname")
 	private String apellidos;
 
