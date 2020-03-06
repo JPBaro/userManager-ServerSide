@@ -3,10 +3,10 @@ package com.jpbtech.webappservice.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-//import org.springframework.security.access.annotation.Secured;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +30,8 @@ import com.jpbtech.webappservice.model.UsuarioInfo;
 import com.jpbtech.webappservice.model.messagehandler.NewUserPostWrapper;
 import com.jpbtech.webappservice.service.UserServiceImpl;
 
-//@Secured(value = {"ROLE_USER"})
-//@CrossOrigin(origins = "192.168.1.148:4201")
+//@CrossOrigin(origins = "192.168.1.148:4201") // Solo para tests en LAN - problemas comm APIs
+@Secured(value = {"ROLE_USER"})
 @RestController
 @RequestMapping("/manager-tool")
 public class UsuariosServiceController {
@@ -88,15 +88,14 @@ public class UsuariosServiceController {
 	}
 
 	
-	/*
-	 * @RequestMapping(value = "/logmeout", method = RequestMethod.POST) //
-	 * Pendiente de implementar -test prov public String
-	 * logoutPage(HttpServletRequest request, HttpServletResponse response) {
-	 * Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	 * if (auth != null) new SecurityContextLogoutHandler().logout(request,
-	 * response, auth);
-	 * 
-	 * return "redirect:/login"; }
-	 */
+	
+	  @RequestMapping(value = "/logmeout", method = RequestMethod.POST) //
+	  public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+	  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	  if (auth != null) new SecurityContextLogoutHandler().logout(request,
+	  response, auth);
+	  
+	  return "redirect:/login"; }
+	 
 
 }

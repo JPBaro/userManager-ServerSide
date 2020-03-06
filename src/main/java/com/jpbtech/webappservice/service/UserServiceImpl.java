@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UserServiceImpl {
 	@Autowired
 	PassKeysUsersRepository passNkeyRepo;
 
-	//BCryptPasswordEncoder bCryptPass = new BCryptPasswordEncoder();
+	BCryptPasswordEncoder bCryptPass = new BCryptPasswordEncoder();
 
 	public List<UsuarioInfo> getAllUsersInDB() {
 
@@ -54,15 +55,16 @@ public class UserServiceImpl {
 		if (processValidation(entity.getUsername()))
 			throw new ExceptionInDataBase("Conflicto existencia < "+  entity.getUsername() +" >");
 
-	//	PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
-		//						bCryptPass.encode(entity.getPassword())); // enctriptacion// password
-		
 		userRepo.save(entity); // save "user information" and psw and username in separate table JP
 											
-		// password provisional, No consigo recibir json en formato dado, desde "client angular" Jp 
-		String pswProvisional = entity.getNombre()+entity.getEdad();  
 		
-		PassKeyUsers userVkey = new PassKeyUsers(entity.getNombre(),pswProvisional);
+		// password provisional, No consigo recibir json en formato dado, desde "client angular"
+		// pero si el objeto Usuario, - Creo password provisional basado en 
+		// nombre+edad como 
+		
+		String pswProvisional = entity.getNombre()+ String.valueOf(entity.getEdad()) ;  
+				
+		PassKeyUsers userVkey = new PassKeyUsers(entity.getNombre(),bCryptPass.encode(pswProvisional));
 		passNkeyRepo.save(userVkey);
 
 		return HttpStatus.OK;
@@ -74,16 +76,15 @@ public class UserServiceImpl {
 
 		UsuarioInfo userPosted = entity.getUserInfo();
 
-		// ------------
+		// ------------Check if username is present in any of the records (2xTables@DB)
 		if (processValidation(userPosted.getUsername()))
 			throw new ExceptionInDataBase("Conflicto existencia < "+  userPosted.getUsername() +" >");
 
-	//	PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
-		//						bCryptPass.encode(entity.getPassword())); // enctriptacion// password
-		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),entity.getPassword());
-		passNkeyRepo.save(userVkey); // save "username and password" in table x
-		userRepo.save(userPosted); // save "user information without password"
-									// in table y
+		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
+								bCryptPass.encode(entity.getPassword())); // enctriptacion password
+		
+		passNkeyRepo.save(userVkey); // save "username and password" in table A
+		userRepo.save(userPosted); // save just "user info"  in table B				
 
 		return HttpStatus.OK;
 
