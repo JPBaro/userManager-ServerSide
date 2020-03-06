@@ -1,6 +1,6 @@
 <h2><span style="text-decoration: underline;"><strong>UserManagementService</strong></span></h2>
 <hr />
-<h3><em>REST API - Server side</em> - based on <span style="color: #003300;">Spring Boot</span> supported by<strong> </strong></h3>
+<h3><em>REST API - Server side</em> - based on Spring Boot supported by</h3>
 <ul style="list-style-type: circle;">
 <li><strong>&nbsp;JPA Hibernate</strong></li>
 <li><strong>&nbsp;postgresql</strong></li>
@@ -38,4 +38,4 @@ UserManagementService
 <hr>
 <br><div>com.jpbtech.webappservice.swager - http://localhost:8080/swagger-ui.html for the API information *Responses not well implemented :(  </div>
 
-
+<blockquote>Pendint to debug and implement:  proper Authentication between APIs with third party as OAuth, and JWT . Granting roles for Authorization for different resourcesmodules of the API .  Review standard response according to methods and hedaders. Implement https with certificate to secure traffic data. Stablish proper routing to reach the the API and this to DB Postgresql docker</blockquote>
