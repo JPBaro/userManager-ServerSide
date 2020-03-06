@@ -37,5 +37,5 @@ UserManagementService
 <br><div>com.jpbtech.webappservice.security ~ SecurityAPIuserManagement: Spring security config, provisional basic auth implementation with 'user' and 'password' inMemoryAuthentication , no - roles for authoritzation implemented yet. BCryptPasswordEncoder imported too for handling user's password before saving it to the DB</div>
 <hr>
 <br><div>com.jpbtech.webappservice.swager - http://localhost:8080/swagger-ui.html for the API information *Responses not well implemented :(  </div>
-
-<blockquote>Pendint to debug and implement:  proper Authentication between APIs with third party as OAuth, and JWT . Granting roles for Authorization for different resourcesmodules of the API .  Review standard response according to methods and hedaders. Implement https with certificate to secure traffic data. Stablish proper routing to reach the the API and this to DB Postgresql docker</blockquote>
+<hr>
+<blockquote><h5>Pending to debug and implement:</h5>  proper Authentication between APIs with third party as OAuth, and JWT . Granting roles for Authorization for different resources/modules of the API .  Review standard response according to methods and hedaders, and handle these properly. Implement HTTPS with certificate to secure traffic data. Stablish proper routing to reach the the API and this to DB Postgresql docker</blockquote>
