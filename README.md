@@ -8,7 +8,7 @@
 <li>&nbsp;<strong>Spring security</strong> (not fully deployed)</li>
 </ul>
 <p>  </p>
-<p>This API REST works in between a Service with data layer over postgresql hosted in Docker/postgres9.6 container configured for data persistence and listening on localhost and LAN (see Application properties) for testing purposes.</p>
+<p>This API REST is meant to work in between: <b>Client (UI Angular)</b> and a Data layer over postgresql hosted in Docker/postgres9.6 container configured for data persistence and listening on localhost and LAN (see Application properties) for testing purposes.</p>
 <blockquote>
 Functionality checked with Postman app client, and traffic back-forth client-server with wireshark for facilitating understanding the processes behing the framework</blockquote>
 
