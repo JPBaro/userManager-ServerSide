@@ -1,4 +1,4 @@
-##Note: Provisional Branch to wotk with UserManager-ClientSide as request with credentials are not implemented yet in that app.   
+##Note: Provisional Branch with no auth to wotk with  <a href="https://github.com/JPBaro/UserManager-ClientSide"> UserManager-ClientSide (branch master)</a> as request with credentials are not implemented yet in that app.   
 <h2><span style="text-decoration: underline;"><strong>UserManagementService</strong></span></h2>
 <hr />
 <h3><em>REST API - Server side</em> - based on Spring Boot supported by</h3>
