@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class UserServiceImpl {
 	@Autowired
 	PassKeysUsersRepository passNkeyRepo;
 
-	BCryptPasswordEncoder bCryptPass = new BCryptPasswordEncoder();
+	//BCryptPasswordEncoder bCryptPass = new BCryptPasswordEncoder();
 
 	public List<UsuarioInfo> getAllUsersInDB() {
 
@@ -63,8 +63,12 @@ public class UserServiceImpl {
 		// nombre+edad como 
 		
 		String pswProvisional = entity.getNombre()+ String.valueOf(entity.getEdad()) ;  
-				
-		PassKeyUsers userVkey = new PassKeyUsers(entity.getNombre(),bCryptPass.encode(pswProvisional));
+			
+		//with Bcrypt
+		//PassKeyUsers userVkey = new PassKeyUsers(entity.getNombre(),bCryptPass.encode(pswProvisional));
+		
+		//without Bcrypt
+		PassKeyUsers userVkey = new PassKeyUsers(entity.getUsername(),pswProvisional);
 		passNkeyRepo.save(userVkey);
 
 		return HttpStatus.OK;
@@ -80,8 +84,15 @@ public class UserServiceImpl {
 		if (processValidation(userPosted.getUsername()))
 			throw new ExceptionInDataBase("Conflicto existencia < "+  userPosted.getUsername() +" >");
 
+		//with Bcrypt
+		//PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
+		//						bCryptPass.encode(entity.getPassword())); // enctriptacion password
+		
+
+		//without Bcrypt
 		PassKeyUsers userVkey = new PassKeyUsers(userPosted.getUsername(),
-								bCryptPass.encode(entity.getPassword())); // enctriptacion password
+								entity.getPassword()); //
+		
 		
 		passNkeyRepo.save(userVkey); // save "username and password" in table A
 		userRepo.save(userPosted); // save just "user info"  in table B				

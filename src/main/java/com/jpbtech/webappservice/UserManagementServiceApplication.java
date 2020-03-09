@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
-@ComponentScan(basePackages = "com.jpbtech.webappservice")
+//@ComponentScan(basePackages = "com.jpbtech.webappservice")
 @SpringBootApplication
 public class UserManagementServiceApplication extends SpringBootServletInitializer{
 	
