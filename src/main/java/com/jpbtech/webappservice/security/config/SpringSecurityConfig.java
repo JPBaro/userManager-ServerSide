@@ -35,7 +35,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	                //
 	                // Add Filter 2 - JWTAuthenticationFilter
 	                //
-	                .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+	                .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+	                .cors();
 	    }
 	 
 	    @Bean
