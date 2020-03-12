@@ -1,4 +1,4 @@
-##Note: Provisional Auth Basic implemented with inMemory User('jpb') Password ('123'). - For working with UserManager-ClientSide switch to No-Auth branch of this repository, as sending credentials are not yet implemented in the other app
+##Note: Authentication+Authorization with Auth0+JWT - testing with in-memory credentials username/password (jpb/123) (**GET Method at /login  just for testing** still pending HTTPS implementation. - For working with UserManager-ClientSide switch to No-Auth branch of this repository, as sending credentials are not yet implemented in the other app
 <h2><span style="text-decoration: underline;"><strong>UserManagementService</strong></span></h2>
 <hr />
 <h3><em>REST API - Server side</em> - based on Spring Boot supported by</h3>
