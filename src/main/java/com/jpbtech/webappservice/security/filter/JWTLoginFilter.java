@@ -58,8 +58,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
  
         String authorizationString = response.getHeader("Authorization");
  
-        System.out.println("---------------------------IDONT-----------------------------------------------");// testing purposes JP
-        System.out.println("MAQUINAAAA !!: Authorization String=" + authorizationString);// testing purposes JP
+        System.out.println("--------------------------went through - you get TOKEN-----------------------------------------------");// testing purposes JP
+        System.out.println(" Authorization String=" + authorizationString);// testing purposes JP
     }
  
 }
