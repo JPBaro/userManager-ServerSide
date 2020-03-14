@@ -23,7 +23,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	                // No need authentication.
 	                .antMatchers("/").permitAll() //
 	                .antMatchers(HttpMethod.POST, "/login").permitAll() //
-	                .antMatchers(HttpMethod.GET, "/login").permitAll() // For Test on Browser
+	                .antMatchers(HttpMethod.GET, "/login").permitAll() // For Test on Browser REMOVEEEEEEE!!! jp
 	                // Need authentication.
 	                .anyRequest().authenticated()
 	                //
@@ -51,7 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	        String password = "123";
 	 
 	        String encrytedPassword = this.passwordEncoder().encode(password);
-	        System.out.println("Encoded password of 123=" + encrytedPassword);
+	        System.out.println("Encoded password of 123=" + encrytedPassword); // testing purposes JP
 	 
 	        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> //
 	        mngConfig = auth.inMemoryAuthentication();

@@ -21,8 +21,11 @@ import com.jpbtech.webappservice.security.service.TokenAuthenticationService;
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
  
     public JWTLoginFilter(String url, AuthenticationManager authManager) {
+    	
         super(new AntPathRequestMatcher(url));
+        
         setAuthenticationManager(authManager);
+   
     }
  
     @Override
@@ -32,11 +35,11 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
  
-        System.out.println("LOGIN FILTER-----------------------------ATTEMPT----------------------------------------------");
-        System.out.println("/n AUTHENTICATION by username and passw"); 
-        System.out.printf("JWTLoginFilter.attemptAuthentication: username/password= %s,%s", username, password);
+        System.out.println("LOGIN FILTER-----------------------------ATTEMPT----------------------------------------------");// testing purposes JP
+        System.out.println("/n AUTHENTICATION by username and passw"); // testing purposes JP
+        System.out.printf("JWTLoginFilter.attemptAuthentication: username/password= %s,%s", username, password);// testing purposes JP
         System.out.println();
-        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------");// testing purposes JP
  
         return getAuthenticationManager()
                 .authenticate(new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList()));
@@ -46,17 +49,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
  
-    	  System.out.println("-LOGIN FILTER ----------------------successfull-----------------------------------------------");
-          System.out.println("-AUTHENTICATION by username and passw"); 
-        System.out.println(" JWTLoginFilter.successfulAuthentication:");
+    	  System.out.println("-LOGIN FILTER ----------------------successfull-----------------------------------------------");// testing purposes JP
+          System.out.println("-AUTHENTICATION by username and passw"); // testing purposes JP
+        System.out.println(" JWTLoginFilter.successfulAuthentication:");// testing purposes JP
  
         // Write Authorization to Headers of Response.
         TokenAuthenticationService.addAuthentication(response, authResult.getName());
  
         String authorizationString = response.getHeader("Authorization");
  
-        System.out.println("---------------------------IDONT-----------------------------------------------");
-        System.out.println("MAQUINAAAA !!: Authorization String=" + authorizationString);
+        System.out.println("---------------------------IDONT-----------------------------------------------");// testing purposes JP
+        System.out.println("MAQUINAAAA !!: Authorization String=" + authorizationString);// testing purposes JP
     }
  
 }
