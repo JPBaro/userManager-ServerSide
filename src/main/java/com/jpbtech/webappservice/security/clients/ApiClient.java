@@ -1,6 +1,8 @@
 package com.jpbtech.webappservice.security.clients;
 
 public class ApiClient {
+	
+	// pending to implement and modify for client side sign in and sign up
 
 	private String status;
 

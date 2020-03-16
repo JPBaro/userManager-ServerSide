@@ -22,8 +22,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	        http.csrf().disable().authorizeRequests()
 	                // No need authentication.
 	                .antMatchers("/").permitAll() //
+	                .antMatchers(HttpMethod.OPTIONS,"*").permitAll()   //allow CORS options in calls - check from client side JP 15032020
 	                .antMatchers(HttpMethod.POST, "/login").permitAll() //
-	                .antMatchers(HttpMethod.GET, "/login").permitAll() // For Test on Browser REMOVEEEEEEE!!! jp
+	               
 	                // Need authentication.
 	                .anyRequest().authenticated()
 	                //
@@ -48,10 +49,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	    @Override
 	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	 
-	        String password = "123";
-	 
-	        String encrytedPassword = this.passwordEncoder().encode(password);
-	        System.out.println("Encoded password of 123=" + encrytedPassword); // testing purposes JP
+	        String passwordUser = "123";
+	        String passwordAdmin = "321";
+	        String encrytedPasswordUser = this.passwordEncoder().encode(passwordUser);
+	        String encrytedPasswordAdmin = this.passwordEncoder().encode(passwordAdmin);
+	        
+	        System.out.println("Encoded password of 123=" + encrytedPasswordUser); // testing purposes JP
 	 
 	        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> //
 	        mngConfig = auth.inMemoryAuthentication();
@@ -59,8 +62,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	        // Defines 2 users, stored in memory.
 	        // ** Spring BOOT >= 2.x (Spring Security 5.x)
 	        // Spring auto add ROLE_
-	        UserDetails u1 = User.withUsername("jpb").password(encrytedPassword).roles("USER").build();
-	        UserDetails u2 = User.withUsername("guest").password(encrytedPassword).roles("USER").build();
+	        UserDetails u1 = User.withUsername("jpb").password(encrytedPasswordUser).roles("USER").build();
+	        UserDetails u2 = User.withUsername("guest").password(encrytedPasswordAdmin).roles("ADMIN").build();
 	 
 	        mngConfig.withUser(u1);
 	        mngConfig.withUser(u2);
